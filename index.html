@@ -1,0 +1,430 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width,user-scalable=no" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <title>STM by TaxiMedia</title>
+	  
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.css" />
+    <link rel="stylesheet" href="js/jquery.mobile.datebox/jquery.mobile.datebox.min.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="css/stm.general.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="css/stm.animation.css" type="text/css" charset="utf-8" />
+        
+	<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript">
+        $( document ).bind( "mobileinit", function() {
+            // Make your jQuery Mobile framework configuration changes here!
+            $.support.cors = true;
+            $.mobile.allowCrossDomainPages = true;
+            $.mobile.selectmenu.prototype.options.nativeMenu = false;
+        });
+    </script>    
+    <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <script src="phonegap.js"></script>
+    <script src="childbrowser.js"></script>
+    <script src="js/plugins/Calendar.js"></script>
+    <script src="barcodescanner.js"></script>
+    <script src="PushNotification.js"></script>
+    <script src="GAPlugin.js"></script>
+    <script src="cdv-plugin-fb-connect.js"></script>
+    <script src="facebook-js-sdk.js"></script>
+    <script type="text/javascript" src="js/jquery.mobile.datebox/jquery.mobile.datebox.min.js"></script>
+    <script type="text/javascript" src="js/functions.js"></script>	  
+    <script type="text/javascript" src="js/stm.js"></script>	  
+    
+	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
+    
+  </head>
+  <body data-theme="c">  
+  
+  	<div id="infos" style="display:none;">
+  		<ul>
+  			<li class="platform"></li>
+  			<li class="type"></li>
+  			<li class="subscription"></li>
+  			<li class="latitude"></li>
+  			<li class="longitude"></li>
+  			<li class="address_number"></li>
+  			<li class="address_street"></li>
+  			<li class="address_zip_code"></li>
+  			<li class="address_city"></li>
+  			<li class="address_format"></li>
+  			<li class="name"></li>
+  			<li class="phone"></li>
+  			<li class="message"></li>
+  			<li class="total_person"></li>
+  			<li class="car"></li>
+  			<li class="date"></li>
+  			<li class="time"></li>
+  			<li class="timestamp"></li>
+  		</ul>
+  	</div>
+  
+    <!-- PAGE : HOME -->
+    <div class="page" data-role="page" id="home" data-title="Les Taxis Marseillais" data-theme="c">
+	    <div data-role="content">
+        	<a href="#help" id="help" data-transition="slide" class="bt" ></a>
+        	<div class="header"><img src="images/logo-grand.png" width="100%" /></div>
+            <div style="width:90%;margin-left:auto;margin-right:auto;">
+                <a href="#immediate-address" id="immediate" data-transition="slide" class="bt" style="float:left;margin-right:10px;"><img src="images/bt-immediat.png" width="100%" /></a> 
+                <a href="#reservation-address" id="reservation" data-transition="slide" class="bt" style="float:right;"><img src="images/bt-reservation.png" width="100%" /></a>
+                <div class="clear"></div>
+                <br />	
+                <a href="tel:0491929292" data-role="button" data-theme="c">Appeler le 04 91 92 92 92</a> 
+                <div id="app" style="display:none;">
+                	Platform : <span class="platform"></span><br />
+                	Device ID : <span class="uuid"></span><br />                	
+                	App : <span class="version"></span><br />                 	
+                	Date : <span class="appdate"></span>
+                </div>
+                
+            </div>            
+            <div class="footer"><img src="images/footer.png" width="100%" /></div>
+	    </div>	    
+    </div>
+    <!-- /PAGE : HOME -->
+    
+ 
+ 
+ 
+    <!-- -------------------------------------------------------------------------------- -->
+    <!-- HELP -->
+    <!-- -------------------------------------------------------------------------------- -->    
+    <div class="page" data-role="page" id="help" data-title="Aide" data-theme="c">
+	    <div data-role="content">
+        	<div class="header"><img src="images/logo-grand.png" width="100%" /></div>
+            <div style="width:90%;margin-left:auto;margin-right:auto;">
+	                <a href="#cgv" id="cgv" data-transition="slide" data-role="button" data-theme="a" data-icon="info" data-inline="true">Conditions générales</a> 
+	                <a href="#credits" id="credits" data-transition="slide" data-role="button" data-theme="a" data-icon="check" data-inline="true">Crédits</a>
+	                <br /><br /><br />
+                    <a href="#home" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">retour</a>
+                <br />	
+            </div>            
+            <div class="footer"><img src="images/footer.png" width="100%" /></div>
+	    </div>	    
+    </div>
+    
+
+    
+    <!-- -------------------------------------------------------------------------------- -->
+    <!-- DEMANDE IMMEDIATE -->
+    <!-- -------------------------------------------------------------------------------- -->    
+    
+    <!-- PAGE : DEMANDE IMMEDIATE : Adresse -->
+    <div class="page" data-role="page" id="immediate-address" data-title="Demande immédiate" data-theme="c">
+	    <div data-role="content">	 
+        	<div class="header"><img src="images/logo.png" width="100%" /></div>
+		    <h4>Demande immédiate</h4>
+		    <a href="#" id="immediate-button-geolocalisation" data-role="button" data-theme="a" data-icon="info" data-inline="true">géolocalisation</a>
+		    <div class="search-position" style="display:none;">
+			    &nbsp;&nbsp;Recherche de votre position<br />		    
+			    <img src="images/ajax-loader.gif" alt="Recherche de votre position" />
+		    </div>
+		    <form action="#" method="post">
+				<textarea cols="40" rows="8" name="immediate-address-address" id="immediate-address-address" class="input-clean" data-default="ou saisissez votre adresse">ou saisissez votre adresse</textarea><br />
+				<a href="#home" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">retour</a>
+	    		<a href="#" id="immediate-address-validation" data-role="button" data-theme="a" data-icon="check" data-inline="true">valider</a>
+			</form>	
+            <div class="footer"><img src="images/footer.png" width="100%" /></div>
+	    </div>	    
+    </div>
+    <!-- /PAGE : DEMANDE IMMEDIATE : Adresse -->
+    
+    
+    <!-- PAGE : DEMANDE IMMEDIATE : Infos -->
+    <div class="page" data-role="page" id="immediate-infos" data-title="Réservation" data-theme="c">
+	    <div data-role="content">	   
+	    	<div class="header"><img src="images/logo.png" width="100%" /></div> 
+		    <h4>Demande immédiate</h4>		    
+		    <form action="#" method="post">
+			    <input type="tel" name="immediate-address-subscription" id="immediate-address-subscription" class="input-clean" data-default="n° d'abonné" value="n° d'abonné" maxlength="20" />
+				<input type="text" name="immediate-address-name" id="immediate-address-name" class="input-clean" data-default="Votre nom" value="Votre nom" maxlength="60"  />
+				<input type="tel" name="immediate-address-phone" id="immediate-address-phone" class="input-clean" data-default="Téléphone" value="Téléphone" maxlength="10"  />
+				<textarea cols="40" rows="8" name="immediate-address-message" id="immediate-address-message" class="input-clean" data-default="Commentaires">Commentaires</textarea>
+				<div class="title-input">Nombre de personnes</div>
+				<input type="range" name="immediate-address-total_person" id="immediate-address-total_person" value="1" min="1" max="8"  />
+				<select size="1" name="immediate-address-car" id="immediate-address-car" data-native-menu="false">
+			    	<option value="Tous véhicules">Tous véhicules</option>
+			    	<option value="Break">Break</option>
+			    	<option value="Monospace">Monospace</option>
+			    </select>
+				<a href="#immediate-address" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">retour</a>	    	
+				<a href="#" id="immediate-infos-validation" data-role="button" data-theme="a" data-icon="check" data-inline="true">valider</a>		    
+            </form>		    
+	    </div>	    
+    </div>
+    <!-- /PAGE : DEMANDE IMMEDIATE : Infos -->
+    
+    
+    <!-- PAGE : DEMANDE IMMEDIATE : Récap -->
+    <div class="page" data-role="page" id="immediate-recap" data-title="Demande immédiate" data-theme="c">
+	    <div data-role="content">	    
+	    	<div class="header"><img src="images/logo.png" width="100%" /></div> 
+		    <h4>Demande immédiate</h4>
+		    
+		    Merci de vérifier ces informations.<br />
+	  		Une personne va prendre en charge votre demande.
+			
+            <div class="message">
+                <strong><span id="immediate-recap-name"></span></strong><span id="immediate-recap-subscription"></span><br />	
+                <span id="immediate-recap-address_number"></span> 	
+                <span id="immediate-recap-address_street"></span><br />	
+                <span id="immediate-recap-address_zip_code"></span>	
+                <span id="immediate-recap-address_city"></span><br /><br />
+                
+                <strong><span id="immediate-recap-phone"></span></strong><br />
+                <span id="immediate-recap-total_person"></span> personne(s) / <span id="immediate-recap-car"></span><br />
+                <span id="immediate-recap-message"></span>
+			</div>		
+			
+			<a href="#immediate-infos" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">retour</a>	    	
+			<a href="#" id="immediate-recap-confirm" data-transition="slide" data-role="button" data-theme="a" data-icon="check" data-inline="true">confirmer</a>
+            
+	    </div>	    
+    </div>
+    <!-- /PAGE : DEMANDE IMMEDIATE : Récap -->
+    
+    
+    <!-- -------------------------------------------------------------------------------- -->
+    <!-- RESERVATION -->
+    <!-- -------------------------------------------------------------------------------- -->    
+    
+    <!-- PAGE : RESERVATION : Adresse -->
+    <div class="page" data-role="page" id="reservation-address" data-title="Réservation" data-theme="c">
+	    <div data-role="content">	  
+	    	<div class="header"><img src="images/logo.png" width="100%" /></div>   
+		    <h4>Réservation différée</h4>
+		    Merci d'indiquer votre adresse de départ
+		    <form action="#" method="post">
+				<textarea cols="40" rows="8" name="reservation-address-address" id="reservation-address-address" class="input-clean" data-default="saisissez votre adresse">saisissez votre adresse</textarea><br />				
+				<a href="#home" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">retour</a>
+	    		<a href="#" id="reservation-address-validation" data-role="button" data-theme="a" data-icon="check" data-inline="true">valider</a>		
+	    	</form>
+            <div class="footer"><img src="images/footer.png" width="100%" /></div>	
+		</div>	    
+    </div>
+    <!-- /PAGE : RESERVATION : Adresse -->  
+    
+    
+    <!-- PAGE : RESERVATION : Infos -->
+    <div class="page" data-role="page" id="reservation-infos" data-title="Réservation" data-theme="c">
+	    <div data-role="content">	  
+	    	<div class="header"><img src="images/logo.png" width="100%" /></div>   
+		    <h4>Réservation différée</h4>
+		    
+		    <form action="#" method="post">
+			    	<input type="tel" name="reservation-address-subscription" id="reservation-address-subscription" class="input-clean" data-default="n° d'abonné" value="n° d'abonné" maxlength="20" />
+				    <input type="text" name="reservation-address-name" id="reservation-address-name" class="input-clean" data-default="Votre nom" value="Votre nom" maxlength="60"  />
+					<input type="tel" name="reservation-address-phone" id="reservation-address-phone"  class="input-clean" data-default="Téléphone" value="Téléphone" maxlength="10"  />
+					<textarea cols="40" rows="8" name="reservation-address-message" id="reservation-address-message" class="input-clean" data-default="Commentaires">Commentaires</textarea>
+					<div class="title-input">Nombre de personnes</div>
+				    <input type="range" name="reservation-address-total_person" id="reservation-address-total_person" value="1" min="1" max="8"  />
+					<select size="1" name="reservation-address-car" id="reservation-address-car" data-native-menu="false">
+				    	<option value="Tous véhicules">Tous véhicules</option>
+				    	<option value="Break">Break</option>
+				    	<option value="Monospace">Monospace</option>
+				    </select>
+				<a href="#reservation-address" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">retour</a>
+	    		<a href="#" id="reservation-infos-validation" data-role="button" data-theme="a" data-icon="check" data-inline="true">valider</a>		    
+			</form>		    
+	    </div>	    
+    </div>
+    <!-- /PAGE : RESERVATION : Infos -->  
+    
+    
+    <!-- PAGE : RESERVATION : Time -->
+    <div class="page" data-role="page" id="reservation-time" data-title="Réservation" data-theme="c">
+	    <div data-role="content">	  
+	    	<div class="header"><img src="images/logo.png" width="100%" /></div>   
+		    <h4>Réservation différée</h4>
+		    
+		    <form action="#" method="post">	
+		    	
+		    	
+		    	<select size="1" name="reservation-time-date" id="reservation-time-date" data-native-menu="false">
+		    		<option value="" data-placeholder="true">Précisez le jour</option>
+			    </select><br />
+			    
+			    <div class="title-input">Heure</div>
+				<input type="range" name="reservation-time-hour" id="reservation-time-hour" value="12" min="0" max="23"  />
+				
+				<div class="title-input">Minute</div>
+				<input type="range" name="reservation-time-minute" id="reservation-time-minute" value="0" min="0" max="55" step="5"  />		    		  	
+			    
+			    <a href="#reservation-infos" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">retour</a>	    	
+				<a href="#" id="reservation-time-validation" data-role="button" data-theme="a" data-icon="check" data-inline="true">valider</a>		    
+			</form>
+            <div class="footer"><img src="images/footer.png" width="100%" /></div>
+	    </div>	    
+    </div>
+    <!-- /PAGE : RESERVATION : Time --> 
+    
+    
+    <!-- PAGE : RESERVATION : Récap -->
+    <div class="page" data-role="page" id="reservation-recap" data-title="Réservation" data-theme="c">
+	    <div data-role="content">	 
+	    	<div class="header"><img src="images/logo.png" width="100%" /></div>    
+		    <h4>Réservation différée</h4>
+		    
+	  		Merci de vérifier ces informations.<br />
+	  		Une personne va prendre en charge votre demande.
+		    
+		    <div class="message">
+			    Le <span id="reservation-recap-date"></span> à <span id="reservation-recap-time"></span><br /><br />
+				
+				<strong><span id="reservation-recap-name"></span></strong><span id="reservation-recap-subscription"></span><br />	
+				<span id="reservation-recap-address_number"></span> 	
+				<span id="reservation-recap-address_street"></span><br />	
+				<span id="reservation-recap-address_zip_code"></span>	
+				<span id="reservation-recap-address_city"></span><br /><br />
+				
+				<span id="reservation-recap-phone"></span><br />
+				<span id="reservation-recap-total_person"></span> personnes / <span id="reservation-recap-car"></span><br />							
+				<span id="reservation-recap-message"></span>
+			</div>
+			
+			<a href="#reservation-time" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">retour</a>	    	
+			<a href="#" id="reservation-recap-confirm" data-transition="slide" data-role="button" data-theme="a" data-icon="check" data-inline="true">confirmer</a>
+            
+	    </div>	    
+    </div>
+    <!-- /PAGE : RESERVATION : Récap -->
+    
+    
+    <!-- -------------------------------------------------------------------------------- -->
+    <!-- FIN -->
+    <!-- -------------------------------------------------------------------------------- -->    
+    
+    <!-- PAGE : THANKS -->
+    <div class="page" data-role="page" id="thanks" data-title="Demande transférée" data-theme="c">
+	    <div data-role="content">	 
+	    	<div class="header"><img src="images/logo.png" width="100%" /></div>    
+		    <div style="text-align:center;">
+            	Votre demande a bien été prise en compte par nos services.<br /><br />
+		    	<strong>Merci de votre confiance !</strong>
+                <br /><br /><br /><br />
+                <a href="#home" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">Retour à l'accueil</a>	    	
+            </div>
+			
+            <div class="footer"><img src="images/footer.png" width="100%" /></div>	    
+	    </div>	    
+    </div>
+    <!-- /PAGE : THANKS --> 
+
+
+
+    <!-- -------------------------------------------------------------------------------- -->
+    <!-- CGV -->
+    <!-- -------------------------------------------------------------------------------- -->    
+    <div class="page" data-role="page" id="cgv" data-title="Conditions générales" data-theme="c" style="background-color:#3F7786">
+	    <div data-role="content">
+	    	<div class="header"><img src="images/logo.png" width="100%" /></div>    
+		    <h4>Conditions générales</h4><br />	
+            <div style="width:90%;margin-left:auto;margin-right:auto;">
+
+			<div class="cgv">
+            	<p>L’Association Loi 1901 ci après dénommée LES TAXIS MARSEILLAIS ET DE PROVENCE dont le siège social est 25 Avenue Edouard Vaillant 13003 Marseille immatriculée sous le numéro 534297288, parution au journal officiel du 13 Aout 2011 exploite un central de radio taxis, sous la marque LTM, auquel sont affiliés des chauffeurs de taxi marseillais indépendants. L’association met en relation le CLIENT avec les  chauffeurs de taxi marseillais affiliés, lesquels réalisent, pour leur propre compte et sous leur propre responsabilité, les prestations de transport demandées par le CLIENT.</p>
+				<p>Les présentes conditions générales s’appliquent pour les commandes de taxis passées par le CLIENT auprès de l’association par téléphone, par Internet sur le site <a href="http://www.lestaxismarseillais.com/" target="_blank">www.lestaxismarseillais.com</a>, par Internet mobile où via les applications logicielles dédiées de l’association.</a>
+				<p>Les présentes conditions générales ne s’appliquent pas aux clients ayant conclus avec l’association des contrats d’abonnement spécifiques.</p>
+				<div>
+				  <h5><strong>ARTICLE 1 : </strong>PRESTATION DE LA SOCIETE</h5>
+				  <p>La prestation fournie par l’association consiste à rechercher, pour le compte du CLIENT, un taxi disponible dans le secteur de la demande selon les indications fournies par ce dernier.</p>
+				</div>				
+				<div>
+				  <h5><strong>ARTICLE 2 : </strong>COMMANDES DE TAXI</h5>
+				  <p><strong>. 2.1 : Demandes immédiates</strong><br />
+					Après avoir précisé qu'il s'agit d'une demande immédiate, le CLIENT doit signaler les particularités de la course. L’association procède alors à une analyse immédiate du nombre de taxis disponibles dans le secteur demandé et les secteurs environnants. En cas de disponibilité, l’association annonce au CLIENT un délai estimatif d'arrivée du taxi, fonction de la disponibilité des taxis et procède sur le champ à la recherche d'un véhicule.<br />
+					Dans le cas où le CLIENT est mis en attente de confirmation, et raccroche pour quelque cause que ce soit avant que la confirmation du taxi lui soit faite, la demande est automatiquement annulée.<br>
+				 <p><strong>. 2.2 : Demandes à l'avance</strong><br />
+				   Une demande à l'avance, dite " réservation ", consiste en l'enregistrement par l’association d'une demande de taxi passée par le CLIENT dans un délai de sept jours maximum à une heure minimum avant l'heure du déplacement. Il ne s'agit pas de la réservation d'un taxi identifié, mais de la prise en compte d'une recherche de taxi programmée par l’association pour être effectuée 15 à 45 minutes avant l'heure prévue du départ en fonction du lieu de prise en charge, des caractéristiques du taxi demandé et des conditions de circulation attendues. L’association se réserve la possibilité de refuser les demandes à l'avance certains jours, à certaines heures ou dans certains secteurs géographiques en fonction du nombre de demandes déjà enregistrées et/ou de l'estimation prévisible concernant l'offre de taxis.</p>
+				  <p><strong>. 2.3 : Modalités de commande</strong><br />
+				   Pour chaque demande à l'avance, le CLIENT précise les caractéristiques de la demande, jour, heure, adresse et particularités de la course, ainsi que le nom du passager. L'annulation ou la modification de la commande passée doit être effectuée par le CLIENT au moins 1 heure avant l'heure prévue de la prise en charge.<br>
+					Dans le cas où aucun taxi ne se serait présenté 5 minutes après l'heure prévue de la prise en charge, le CLIENT doit immédiatement rappeler le centre d'appels de l’association au 04 91 92 92 92  qui lui donnera toute information utile sur l'arrivée du taxi ou sur l'état de la recherche du taxi.</p>
+				  <p><strong>. 2.4 : Prise en charge du passager</strong><br />
+					Le CLIENT doit monter dans le taxi dès que celui-ci arrive à l'adresse indiquée en cas de demande immédiate, ou à l'heure convenue en cas de demande à l'avance.<br>
+					En cas d'absence du passager :<br>
+					-	Le chauffeur de taxi est réputé autorisé à partir cinq minutes après cet horaire sans avertissement préalable.<br />
+					-	Le déplacement du taxi doit être réglé au chauffeur de taxi pour le montant figurant au compteur. En cas d’impossibilité de règlement direct auprès du chauffeur de taxi, l’association transmettra, par courrier adressé une facture de course non chargée pour le compte de ce chauffeur de taxi, que le CLIENT s’engage à régler à l’association dès réception.</p>
+				</div>				
+				<div>
+				  <h5><strong>ARTICLE 3 : </strong>CONDITIONS TARIFAIRES</h5>
+				  <p><strong>. 3.1 : Commande par téléphone</strong><br />
+					Ce service est totalement gratuit (hors coût de communication variable selon opérateur) et n’est assujetti à aucune facturation de prestation de réservation.</p>
+					<p><strong>. 3.1 : Commande par téléphone</strong><br />
+					Les commandes « en ligne » sont émises via internet, internet mobile ou par l’intermédiaire des applications logicielles dédiées de l’association.</p>
+				</div>
+				<div>
+				  <h5><strong>ARTICLE 4 : </strong>RESPONSABILITÉ DE L'ASSOCIATION</h5>
+				  <p>La responsabilité de l’association se limite à la prestation de recherche d'un taxi à l'adresse indiquée par le CLIENT.<br>
+				L’association met tous ses moyens en œuvre afin de trouver pour le CLIENT un taxi disponible dans les meilleurs délais.<br>
+				La responsabilité de l’association ne pourra être engagée si la recherche d'un taxi n'aboutit pas en raison d'une indisponibilité de taxis, et ce même dans le cas d'une " réservation " visée à l'article 2.2.</p>
+				<p>La responsabilité de l’association ne pourra être engagée en cas de force majeure et plus généralement dans les cas suivants : panne informatique ou des réseaux de télécommunication empêchant la disponibilité des services en ligne, grève, manifestation, intempéries, accident de la circulation perturbant la circulation, embouteillage d'une ampleur inhabituelle.</p>
+				<p>L'exécution de la prestation de transport est placée sous la responsabilité propre du chauffeur de taxi. En cas de retard du fait du chauffeur de taxi qui a accepté la course, d'inexécution ou de mauvaise exécution de la course par ce dernier, la responsabilité de l’association ne pourra être engagée</p>
+				</div>
+
+				<div>
+				  <h5><strong>ARTICLE 5 : </strong>DISPOSITIONS SPÉCIFIQUES AUX COMMANDES DE TAXI PAR INTERNET ET PAR APPLICATION  MOBILE</h5>
+					<p><strong>. 5.1 Disponibilité du service</strong><br />
+					L’association s'efforce de rendre le service de commande en ligne opérationnel de manière quasi-permanente, 24 heures sur 24 et 365 jours par an. Elle s'autorise cependant à l'interrompre avec ou sans préavis, pour des raisons inhérentes aux contraintes d'exploitation.<br>
+					L’accessibilité au service est par ailleurs conditionnée par l'utilisation par le CLIENT de ressources informatiques suffisantes, d’un navigateur Internet approprié (liste des navigateurs compatibles sur demande) ou d’un smartphone compatible au niveau matériel et logiciel (le CLIENT peut obtenir sur demande auprès de l’association la ou les configurations conseillées).</p>
+					<p><strong>. 5.2 Propriété intellectuelle</strong><br />
+					En application du code de la propriété intellectuelle, tous les éléments du site ou des applications (graphismes, images, textes, logos, bases de données, programmes) sont la propriété pleine et entière de l’association, à l’exception des éléments (logos notamment) fournis par les partenaires de l’association.</p>
+				 </div>
+				<div>
+				  <h5><strong>ARTICLE 6 : </strong>MODIFICATIONS</h5>
+				  <p>L’association se réserve la possibilité de modifier les conditions générales d'utilisation des services sans préavis.</p>
+				</div>
+				<div>
+				  <h5><strong>ARTICLE 7 : </strong>DONNÉES PERSONNELLES</h5>
+				  <p>Le CLIENT est informé et accepte que l’association se réserve la possibilité d'enregistrer et de conserver, à des fins de preuve et afin d’optimiser l’efficacité du processus de gestion des commandes, l'ensemble des informations relatives aux appels reçus par son Centre d'Appels, aux données d’identification du CLIENT et aux courses de taxis réalisées, notamment :<br>
+				  - Le numéro de téléphone présenté par le CLIENT.<br>
+				  - L'enregistrement de la conversation téléphonique<br>
+				  - Les noms, prénoms des passagers, adresses de prise en charge et adresses email.<br>
+				  - Le détail des données relatives à la course effectuée.<br></p>
+				  <p>Pour exercer ce droit, le CLIENT peut, à son choix, envoyer un e-mail par l’intermédiaire du site de l’association, soit adresser un courrier à l’association, à LES TAXIS MARSEILLAIS ET DE PROVENCE : 25, Avenue Edouard Vaillant 13003 Marseille.</p>
+				 <p>Il est précisé que l’association assure la confidentialité des données personnelles communiquées par le CLIENT dont notamment celles relatives aux particularités demandées lors de la commande.<br>
+					Conformément à la loi numéro 78-17 du 06 janvier 1978, le CLIENT a un droit d'accès et de suppression des données le concernant figurant dans le fichier constitué par l’association.<br></p>
+					<p>Par ailleurs, l’association peut utiliser les données personnelles concernant le CLIENT afin de lui adresser des offres commerciales susceptibles de l'intéresser. En application de la Loi Informatique et Libertés, le CLIENT dispose cependant du droit de s'opposer à la réception par courrier électronique de documents de prospection commerciale non sollicitée, en adressant un email ou un courrier à LES TAXIS MARSEILLAIS ET DE PROVENCE, 25 Avenue Edouard Vaillant 13003 Marseille.</p>
+				</div>
+				<div>
+				  <h5><strong>ARTICLE 8 : </strong>LOI APPLICABLE - JURIDICTION</h5>
+				  <p>Les présentes conditions générales sont soumises à la loi française. En cas de contestation sur l'interprétation, sur l'exécution et la réalisation de l'une des prestations commandées en ligne, le litige sera, à défaut d'accord amiable, si le CLIENT a la qualité de commerçant, de la compétence exclusive du Tribunal de Commerce de Marseille.</p>
+				</div>
+            </div>
+            <br />	               
+                
+            </div> 
+			<a href="#help" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">retour</a>
+                       
+	    </div>	    
+    </div>
+
+    <!-- -------------------------------------------------------------------------------- -->
+    <!-- HELP -->
+    <!-- -------------------------------------------------------------------------------- -->    
+    <div class="page" data-role="page" id="credits" data-title="Conditions générales" data-theme="c">
+	    <div data-role="content">
+	    	<div class="header"><img src="images/logo.png" width="100%" /></div>    
+		    <h4>Crédits</h4><br />	
+            <div style="width:90%;margin-left:auto;margin-right:auto;">
+
+			<div class="credits">
+				Cette application Mobile a été développée par la société : <br /><br />
+                <img src="images/logo-publicom.png" /><br />
+                10, Route de Galice<br />
+                13100 AIX EN PROVENCE<br /><br />
+                Tél. : <strong>04 42 99 01 20</strong><br />
+                www.publicom.fr
+            </div>
+            <br />	
+                
+                
+            </div> 
+			<a href="#help" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">retour</a>
+                       
+	    </div>	    
+    </div>        
+    
+  </body>
+</html>

@@ -1,0 +1,87 @@
+.title-input{
+	font-style: italic;
+	font-size: 0.8em;
+	padding-left: 0.2em;
+}
+
+html{
+	margin:0px;
+	padding:0px;
+}
+
+.clear{
+	clear:both;	
+}
+
+.header{
+	width:80%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+
+.footer{
+	width:100%;
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	z-index:0;
+}
+
+a.bt{
+	width:45%;
+	height:45%;
+}
+
+a.bt:hover{
+}
+
+.search-position{
+	font-size: 0.6em;	
+}
+
+.message{
+	text-align:center;
+	color:#FFF;
+	margin: 4px 0 4px 0;	
+}
+
+.message #reservation-recap-name{
+	font-weight:bold;	
+}
+
+.message #reservation-recap-phone{
+	font-weight:bold;	
+}
+
+.message #immediate-recap-total_person,
+.message #immediate-recap-car,
+.message #immediate-recap-message{
+	font-style:italic;
+}
+
+
+a#help{
+	position:absolute;
+	top:0px;
+	left:0px;
+	
+	display:block;
+	width:43px;
+	height:43px;
+	
+	background-image:url(../images/help.png);
+}
+
+.cgv{
+	width:100%;
+	font-size:11px;
+	text-align:justify;
+	padding:4px;
+	color:#FFF;
+	
+}
+
+#reservation-time-date-menu .ui-btn-text, .ui-select .ui-btn-text{
+	font-size: 12px;	
+}
