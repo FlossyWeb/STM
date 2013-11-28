@@ -123,7 +123,7 @@ $(document).ready(function() {
 		
 		//document.addEventListener("deviceready", startGeolocalisationSearch, false);
         if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(GeolocalisationOnSuccess, GeolocalisationOnError);
+            navigator.geolocation.getCurrentPosition(GeolocalisationOnSuccess, GeolocalisationOnError,{enableHighAccuracy:true, maximumAge:0});
         }else{
             alert('Impossible de vous localiser.');
             // Affichage de l'annimation de recherche
