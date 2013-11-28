@@ -233,12 +233,12 @@ $(document).ready(function() {
     
     // Button : Validation infos
     $('#immediate-recap-confirm').click(function() { 
+        // Déplacement sur la page de remerciements
+        changePage('#thanks');
         // Envoi de la réservation
         sendResa();
 		// Check answers...
 		check_answer();
-        // Déplacement sur la page de remerciements
-        changePage('#thanks');
     });
     
     
@@ -358,12 +358,12 @@ $(document).ready(function() {
     
     // Button : Validation infos
     $('#reservation-recap-confirm').click(function() { 
+        // Déplacement sur la page de remerciements
+        changePage('#thanks');
         // Envoi de la réservation
         sendResa();
 		// Check answers...
 		check_answer();
-        // Déplacement sur la page de remerciements
-        changePage('#thanks');
     });
     
         

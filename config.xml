@@ -15,8 +15,10 @@
 	</description>
 
 			   
+	<gap:splash src="splashscreen960.png" width="640" height="960" /> 
 	<gap:splash src="splashscreen800.png" width="480" height="800" /> 
 	<gap:splash src="splashscreen480.png" width="320" height="480" /> 
+	<gap:splash src="splash.png" />
 
 	<icon src="icon24.png" width="24" height="24" />
 	<icon src="icon29.png" width="29" height="29" /> 

@@ -1,7 +1,6 @@
-
+var idcourse;
 //------------------------------------------------------------------------------
 // IDENTIFICATION MATERIEL
-var idcourse;
 
 function onDeviceReady() {
 	var version = '1.0';
@@ -398,12 +397,9 @@ function GeolocalisationOnError(error) {
 
 // Envoi la demande au script PHP chargé de créer le fichier xml de résa
 function sendResa(){
+	$.mobile.loading( "show" );
     // Récupération des dernières informations
     reservation = recupInfo();
-    
-	var myDate = new Date();
-	idcourse = myDate.getTime();
-    // Contruction de l'url des paramètres
 	/*
     if(reservation['date'] == '' || reservation['time'] == '')
 	{
@@ -420,6 +416,9 @@ function sendResa(){
 		cmd = true;
 	}	
 	*/
+	var myDate = new Date();
+	idcourse = myDate.getTime();
+    // Contruction de l'url des paramètres
     operator = reservation['subscription'];
     lat = reservation['latitude'];
     lng = reservation['longitude'];
@@ -428,31 +427,41 @@ function sendResa(){
     cell = reservation['phone'];
     date = reservation['date'];
     when = reservation['time'];
-    var url = '';
+	type = reservation['car'];
+	howmany = reservation['total_person'];
+    url = '';
+	i = 0; // We need to make any numreq unique on that one !!
+	num_req = idcourse + i;
 	/*
     for(var name in reservation){
         url = url + "&" + name + '=' + reservation[name];
     }
 	*/
-	// diary.php?taxi=' + name + '&tel=' + address + '&rdvpoint=' + rdvpoint + '&distance=' + distance + '&lat=' + rdvlat + '&lng=' + rdvlng + '&lat2=' + lat2 + '&lng2=' + lng2 + '&idcourse=' + idcourse + '&comments=' + comments + '&dest=' + dest + '&cell=' + cell + '&when=' + when + '&date=' + date + '&operator=' + operator + '&group=' + group + '&ack=0&db=1
-	url = "taxi=0000&tel=0000000000&idcourse=" + idcourse + '&rdvpoint=' + rdvpoint + '&lat=' + lat + '&lng=' + lng + '&comments=' + comments + '&cell=' + cell + '&when=' + when + '&date=' + date + '&operator=' + operator + '&group=1&ack=0&db=1';
-    //url = encodeURI(url);
-	url = url.replace(/'/g, "&rsquo;");
+	//$('#results').append('<p><b>'+type+' - '+howmany+' - '+lat+' - '+lng+' - '+type+' - '+operator+' - '+rdvpoint+' - '+comments+' - '+cell+' - '+date+' - '+when+'</b></p>');
+	$.post("https://ssl14.ovh.net/~taxibleu/server/app_xml.php", { lat: lat, lng: lng, type: type, howmany: howmany, group: '1', dep: '', pass: 'true'}, function(xml){	
+		$(xml).find('marker').each(function(){
+			var name = $(this).attr('name');
+			var address = $(this).attr('address');
+			var lat2 = $(this).attr('lat');
+			var lng2 = $(this).attr('lng');
+			var timestamp = $(this).attr('timestamp');
+			var distance = $(this).attr('distance');
+			num_req = idcourse + i;
+			//$('#results').append('<p><b>'+name+' - '+address+' - '+lat2+' - '+lng2+' - '+timestamp+' - '+distance+'</b></p>');
+			
+			url = 'taxi=' + name + '&tel=' + address + '&idcourse=' + idcourse + '&num_req=' + num_req + '&rdvpoint=' + rdvpoint + '&lat=' + lat + '&lng=' + lng + '&comments=' + comments + '&cell=' + cell + '&when=' + when + '&date=' + date + '&operator=' + operator + '&group=1&ack=0&db=1';
+			url = url.replace(/'/g, "&rsquo;");
+			$.post("https://ssl14.ovh.net/~taxibleu/server/diary_app_stm.php", url, function(data) {});
+			
+			i++;
+		});
+	}, "xml");
 	
-    // Sends Request to TaxiMedia Server
-	$.post("https://ssl14.ovh.net/~taxibleu/server/diary_app_stm.php", url, function(data) {
-	});
-    // Requête au serveur Publicom pour traitement PHP
-	/*
-    $.ajax({
-        url: "http://clients.publicom.fr/stm/reservation_2012.php",
-        type: "POST",
-        data: url,
-        error: function(){
-          alert('Serveur indisponible, merci de nous contacter au 04 91 92 92 92');
-        }
-    });
-	*/
+	url = 'taxi=0000&tel=0000000000&idcourse=' + idcourse + '&num_req=' + num_req + '&rdvpoint=' + rdvpoint + '&lat=' + lat + '&lng=' + lng + '&comments=' + comments + '&cell=' + cell + '&when=' + when + '&date=' + date + '&operator=' + operator + '&group=1&ack=0&db=1';
+	url = url.replace(/'/g, "&rsquo;");
+	// Sends Auction Request to TaxiMedia Server
+	$.post("https://ssl14.ovh.net/~taxibleu/server/diary_app_stm.php", url, function(data) {});
+	//check_answer();
 }
 function check_answer()
 {

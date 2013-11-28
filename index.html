@@ -18,6 +18,10 @@
             $.support.cors = true;
             $.mobile.allowCrossDomainPages = true;
             $.mobile.selectmenu.prototype.options.nativeMenu = false;
+			$.mobile.loader.prototype.options.text = "Veuillez patienter pendant la recherche de taxi disponible. Merci de votre confiance !";
+			$.mobile.loader.prototype.options.textVisible = "true";
+			$.mobile.loader.prototype.options.theme = "a";
+			$.mobile.loader.prototype.options.html = '<span class="ui-bar ui-overlay-c ui-corner-all"><center><img src="images/preload.gif"/><br><strong><span style="color:#F00;">Veuillez patienter pendant la recherche de taxi disponible</span><br>Merci de votre confiance !</strong></center></span>';
         });
     </script>    
     <script src="http://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
@@ -51,7 +55,10 @@
 			overflow-x: hidden;
 		}
 		.page {
-			background: -moz-linear-gradient(center top , #FFFFFF, #3F7786) repeat scroll 0 0 #3F7786;
+			background: -moz-linear-gradient(to bottom , #FFFFFF, #3F7786) repeat scroll 0 0 #3F7786;
+			background: -webkit-linear-gradient(to bottom , #FFFFFF, #3F7786) repeat scroll 0 0 #3F7786;
+			background: -ms-linear-gradient(to bottom , #FFFFFF, #3F7786) repeat scroll 0 0 #3F7786;
+			background: linear-gradient(to bottom , #FFFFFF, #3F7786) repeat scroll 0 0 #3F7786;
 			margin: 0;
 			overflow-x: hidden;
 		}
@@ -171,9 +178,9 @@
 				<div class="title-input">Nombre de personnes</div>
 				<input type="range" name="immediate-address-total_person" id="immediate-address-total_person" value="1" min="1" max="8"  />
 				<select size="1" name="immediate-address-car" id="immediate-address-car" data-native-menu="false">
-			    	<option value="Tous véhicules">Tous véhicules</option>
+			    	<option value="Berline">Tous véhicules</option>
 			    	<option value="Break">Break</option>
-			    	<option value="Monospace">Monospace</option>
+			    	<option value="Van">Monospace</option>
 			    </select>
 				<a href="#immediate-address" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">retour</a>	    	
 				<a href="#" id="immediate-infos-validation" data-role="button" data-theme="a" data-icon="check" data-inline="true">valider</a>		    
@@ -189,8 +196,8 @@
 	    	<div class="header"><img src="images/logo.png" width="100%" /></div> 
 		    <h4>Demande immédiate</h4>
 		    
-		    Merci de vérifier ces informations.<br />
-	  		Une personne va prendre en charge votre demande.
+		    <b>Merci de vérifier ces informations.<br />
+	  		Les Taxis vont &ecirc;tres avertis afin de prendre en charge votre demande.</b>
 			
             <div class="message">
                 <strong><span id="immediate-recap-name"></span></strong><span id="immediate-recap-subscription"></span><br />	
@@ -247,9 +254,9 @@
 					<div class="title-input">Nombre de personnes</div>
 				    <input type="range" name="reservation-address-total_person" id="reservation-address-total_person" value="1" min="1" max="8"  />
 					<select size="1" name="reservation-address-car" id="reservation-address-car" data-native-menu="false">
-				    	<option value="Tous véhicules">Tous véhicules</option>
+				    	<option value="Berline">Tous véhicules</option>
 				    	<option value="Break">Break</option>
-				    	<option value="Monospace">Monospace</option>
+				    	<option value="Van">Monospace</option>
 				    </select>
 				<a href="#reservation-address" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">retour</a>
 	    		<a href="#" id="reservation-infos-validation" data-role="button" data-theme="a" data-icon="check" data-inline="true">valider</a>		    
@@ -293,8 +300,8 @@
 	    	<div class="header"><img src="images/logo.png" width="100%" /></div>    
 		    <h4>Réservation différée</h4>
 		    
-	  		Merci de vérifier ces informations.<br />
-	  		Une personne va prendre en charge votre demande.
+	  		<b>Merci de vérifier ces informations.<br />
+	  		Les Taxis vont &ecirc;tres avertis afin de prendre en charge votre demande.</b>
 		    
 		    <div class="message">
 			    Le <span id="reservation-recap-date"></span> à <span id="reservation-recap-time"></span><br /><br />
@@ -328,9 +335,7 @@
 	    	<div class="header"><img src="images/logo.png" width="100%" /></div>    
 		    <div style="text-align:center;">
             	Votre demande a bien été prise en compte par nos services.<br /><br />
-		    	<strong><span style="color:#F00;">Veuillez patienter pendant la recherche de taxi disponible</span><br>Merci de votre confiance !</strong>
-                <br /><br />
-                <br /><br />
+                <div id="results"></div>
                 <input type="button" data-theme="a" data-icon="check" onClick="stopCall()" value="ARRETER / ANNULER"/>
                 <!-- <a href="#home" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">Retour à l'accueil</a> -->	    	
             </div>
