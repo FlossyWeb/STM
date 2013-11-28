@@ -1,7 +1,7 @@
 
 //------------------------------------------------------------------------------
 // IDENTIFICATION MATERIEL
-
+var idcourse;
 
 function onDeviceReady() {
 	var version = '1.0';
@@ -81,7 +81,7 @@ function deleteRC(string){
 // Récupération de l'ensemble des données
 function recupInfo(){
     var reservation = new Object();
-    
+	
     reservation['platform'] = $('#infos .platform').html();
     reservation['type'] = $('#infos .type').html();
     reservation['subscription'] = $('#infos .subscription').html();
@@ -401,13 +401,47 @@ function sendResa(){
     // Récupération des dernières informations
     reservation = recupInfo();
     
+	var myDate = new Date();
+	idcourse = myDate.getTime();
     // Contruction de l'url des paramètres
+	/*
+    if(reservation['date'] == '' || reservation['time'] == '')
+	{
+		cmd = false;
+	}
+	else {
+		cmd = true;
+	}
+	if (reservation['type'] == 'immediate')
+	{
+		cmd = false;
+	}
+	else {
+		cmd = true;
+	}	
+	*/
+    operator = reservation['subscription'];
+    lat = reservation['latitude'];
+    lng = reservation['longitude'];
+    rdvpoint = reservation['address_format'];
+	comments = '<ul>Application STM<li>Nom du client : ' + reservation['name'] + '</li><li>Paiement CB : Inconnu</li><li>Nombre de passagers : ' + reservation['total_person'] + '</li><li>Type de vehicule : ' + reservation['car'] + '</li><li>Autres infos : ' + reservation['message'] + '</li></ul>';
+    cell = reservation['phone'];
+    date = reservation['date'];
+    when = reservation['time'];
     var url = '';
+	/*
     for(var name in reservation){
         url = url + "&" + name + '=' + reservation[name];
     }
-    url = encodeURI(url);
-    
+	*/
+	// diary.php?taxi=' + name + '&tel=' + address + '&rdvpoint=' + rdvpoint + '&distance=' + distance + '&lat=' + rdvlat + '&lng=' + rdvlng + '&lat2=' + lat2 + '&lng2=' + lng2 + '&idcourse=' + idcourse + '&comments=' + comments + '&dest=' + dest + '&cell=' + cell + '&when=' + when + '&date=' + date + '&operator=' + operator + '&group=' + group + '&ack=0&db=1
+	url = "taxi=0000&tel=0000000000&idcourse=" + idcourse + '&rdvpoint=' + rdvpoint + '&lat=' + lat + '&lng=' + lng + '&comments=' + comments + '&cell=' + cell + '&when=' + when + '&date=' + date + '&operator=' + operator + '&group=1&ack=0&db=1';
+    //url = encodeURI(url);
+	url = url.replace(/'/g, "&rsquo;");
+	
+    // Sends Request to TaxiMedia Server
+	$.post("https://ssl14.ovh.net/~taxibleu/server/diary_app_stm.php", url, function(data) {
+	});
     // Requête au serveur Publicom pour traitement PHP
 	/*
     $.ajax({
@@ -420,6 +454,32 @@ function sendResa(){
     });
 	*/
 }
+function check_answer()
+{
+	//$.mobile.changePage( $("#urgency"), { transition: "slide"} );
+	sec = setInterval( function () {
+		$.post("https://ssl14.ovh.net/~taxibleu/server/status.php?idcourse=" + idcourse + "&check=1" , { }, function(data){ 
+			if (data != 0)
+			{
+				stopCall();
+				//$('#dblinks').append($('<input id="stop" type="hidden" value="1" />'));
+				var box = alert(data);
+				//$('#thanksResults').empty().append(data);
+			}
+		}); 
+	}, 2000);
+	return false;
+}
+function stopCall()
+{
+	//alert(idcourse);
+	$.post("https://ssl14.ovh.net/~taxibleu/server/diary.php?idcourse=" + idcourse + "&ack=1&db=1&cab_wont=1&del=1", { }, function(data){
+		//$.mobile.changePage( $("#home"), { transition: "slide"} );
+	}).done(changePage('#home'));
+	//$.sessionStorage.setItem('idcourseUrg', false);
+	clearInterval(sec);
+}
+
 
 // Sauvegarde de l'uuid du téléphone dans la base Publicom
 function saveUuid(devicePlatform, deviceID){

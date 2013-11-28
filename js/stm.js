@@ -84,16 +84,17 @@ $(document).ready(function() {
     reservation['address_number'] = '';
     reservation['address_street'] = ''; 
     reservation['address_zip_code'] = '';
-    reservation['address_city'] = ''; 
-    reservation['address_format'] = ''; 
-    reservation['name'] = '';  
-    reservation['phone'] = '';  
+    reservation['address_city'] = '';
+    reservation['address_format'] = '';
+    reservation['name'] = '';
+    reservation['phone'] = '';
     reservation['message'] = '';  
     reservation['total_person'] = '';  
     reservation['car'] = ''; 
     reservation['date'] = ''; 
     reservation['time'] = ''; 
     reservation['timestamp'] = '';
+	var idcourse;
     
     
     //------------------------------------------------------------------------------
@@ -234,6 +235,8 @@ $(document).ready(function() {
     $('#immediate-recap-confirm').click(function() { 
         // Envoi de la réservation
         sendResa();
+		// Check answers...
+		check_answer();
         // Déplacement sur la page de remerciements
         changePage('#thanks');
     });
@@ -357,6 +360,8 @@ $(document).ready(function() {
     $('#reservation-recap-confirm').click(function() { 
         // Envoi de la réservation
         sendResa();
+		// Check answers...
+		check_answer();
         // Déplacement sur la page de remerciements
         changePage('#thanks');
     });

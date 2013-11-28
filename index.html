@@ -34,7 +34,28 @@
     <script type="text/javascript" src="js/stm.js"></script>	  
     
 	<script type="text/javascript" src="https://maps.google.com/maps/api/js?sensor=false&libraries=places"></script>
-    
+    <script type="text/javascript">
+		function taximedia()
+		{
+			window.plugins.childBrowser.showWebPage('http://www.taximedia.fr/redir.php', { showLocationBar: true });
+			//window.open('http://www.taximedia.fr/redir.php','_blank','location=yes');
+		}
+        $('#thanks').live('pageinit', function() {
+			
+		});
+    </script>
+	<style type="text/css">
+		.ui-mobile-viewport {
+			background: -moz-linear-gradient(center top , #FFFFFF, #3F7786) repeat scroll 0 0 #3F7786;
+			margin: 0;
+			overflow-x: hidden;
+		}
+		.page {
+			background: -moz-linear-gradient(center top , #FFFFFF, #3F7786) repeat scroll 0 0 #3F7786;
+			margin: 0;
+			overflow-x: hidden;
+		}
+	</style>
   </head>
   <body data-theme="c">  
   
@@ -58,6 +79,7 @@
   			<li class="date"></li>
   			<li class="time"></li>
   			<li class="timestamp"></li>
+  			<li class="idcourse"></li>
   		</ul>
   	</div>
   
@@ -79,8 +101,12 @@
                 	Date : <span class="appdate"></span>
                 </div>
                 
-            </div>            
-            <div class="footer"><img src="images/footer.png" width="100%" /></div>
+            </div>
+            <div class="footer">
+            	<a href="#" onClick="taximedia()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+            		<img src="images/footer.png" width="100%" />
+                </a>
+            </div>
 	    </div>	    
     </div>
     <!-- /PAGE : HOME -->
@@ -302,9 +328,11 @@
 	    	<div class="header"><img src="images/logo.png" width="100%" /></div>    
 		    <div style="text-align:center;">
             	Votre demande a bien été prise en compte par nos services.<br /><br />
-		    	<strong>Merci de votre confiance !</strong>
-                <br /><br /><br /><br />
-                <a href="#home" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">Retour à l'accueil</a>	    	
+		    	<strong><span style="color:#F00;">Veuillez patienter pendant la recherche de taxi disponible</span><br>Merci de votre confiance !</strong>
+                <br /><br />
+                <br /><br />
+                <input type="button" data-theme="a" data-icon="check" onClick="stopCall()" value="ARRETER / ANNULER"/>
+                <!-- <a href="#home" data-transition="slide" data-direction="reverse" data-theme="a" data-role="button" data-icon="arrow-l" data-inline="true">Retour à l'accueil</a> -->	    	
             </div>
 			
             <div class="footer"><img src="images/footer.png" width="100%" /></div>	    
@@ -415,7 +443,13 @@
                 10, Route de Galice<br />
                 13100 AIX EN PROVENCE<br /><br />
                 Tél. : <strong>04 42 99 01 20</strong><br />
-                www.publicom.fr
+                www.publicom.fr<br><br>
+                Et Modifi&eacute;e par la soci&eacute;t&eacute; : <br /><br />
+                <img src="images/TaxiMedia_text.png" /><br />
+                1, Mont&eacute;e de Saint Menet<br />
+                13011 Marseille<br /><br />
+                Tél. : <strong>04 42 99 01 20</strong><br />
+                <a href="#" onClick="taximedia()" data-ajax="false" data-transition="slide" style="text-decoration:none;">www.taximedia.fr</a><br>
             </div>
             <br />	
                 
