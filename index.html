@@ -44,6 +44,11 @@
 			window.plugins.childBrowser.showWebPage('http://www.taximedia.fr/redir.php', { showLocationBar: true });
 			//window.open('http://www.taximedia.fr/redir.php','_blank','location=yes');
 		}
+		function stmSite()
+		{
+			window.plugins.childBrowser.showWebPage('http://www.lestaxismarseillais.com/', { showLocationBar: true });
+			//window.open('http://www.taximedia.fr/redir.php','_blank','location=yes');
+		}
         $('#thanks').live('pageinit', function() {
 			
 		});
@@ -99,7 +104,11 @@
     <div class="page" data-role="page" id="home" data-title="Les Taxis Marseillais" data-theme="c">
 	    <div data-role="content">
         	<a href="#help" id="help" data-transition="slide" class="bt" ></a>
-        	<div class="header"><img src="images/logo-grand.png" width="100%" /></div>
+        	<div class="header">
+            	<a href="#" onClick="stmSite()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+                    <img src="images/logo-grand.png" width="100%" />
+                </a>
+			</div>
             <div style="width:90%;margin-left:auto;margin-right:auto;">
                 <a href="#immediate-address" id="immediate" data-transition="slide" class="bt" style="float:left;margin-right:10px;"><img src="images/bt-immediat.png" width="100%" /></a> 
                 <a href="#reservation-address" id="reservation" data-transition="slide" class="bt" style="float:right;"><img src="images/bt-reservation.png" width="100%" /></a>
@@ -131,7 +140,11 @@
     <!-- -------------------------------------------------------------------------------- -->    
     <div class="page" data-role="page" id="help" data-title="Aide" data-theme="c">
 	    <div data-role="content">
-        	<div class="header"><img src="images/logo-grand.png" width="100%" /></div>
+        	<div class="header">
+            	<a href="#" onClick="stmSite()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+                    <img src="images/logo-grand.png" width="100%" />
+                </a>
+			</div>
             <div style="width:90%;margin-left:auto;margin-right:auto;">
 	                <a href="#cgv" id="cgv" data-transition="slide" data-role="button" data-theme="a" data-icon="info" data-inline="true">Conditions générales</a> 
 	                <a href="#credits" id="credits" data-transition="slide" data-role="button" data-theme="a" data-icon="check" data-inline="true">Crédits</a>
@@ -152,7 +165,11 @@
     <!-- PAGE : DEMANDE IMMEDIATE : Adresse -->
     <div class="page" data-role="page" id="immediate-address" data-title="Demande immédiate" data-theme="c">
 	    <div data-role="content">	 
-        	<div class="header"><img src="images/logo.png" width="100%" /></div>
+        	<div class="header">
+            	<a href="#" onClick="stmSite()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+                    <img src="images/logo-grand.png" width="100%" />
+                </a>
+			</div>
 		    <h4>Demande immédiate</h4>
 		    <a href="#" id="immediate-button-geolocalisation" data-role="button" data-theme="a" data-icon="info" data-inline="true">géolocalisation</a>
 		    <div class="search-position" style="display:none;">
@@ -173,7 +190,11 @@
     <!-- PAGE : DEMANDE IMMEDIATE : Infos -->
     <div class="page" data-role="page" id="immediate-infos" data-title="Réservation" data-theme="c">
 	    <div data-role="content">	   
-	    	<div class="header"><img src="images/logo.png" width="100%" /></div> 
+        	<div class="header">
+            	<a href="#" onClick="stmSite()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+                    <img src="images/logo-grand.png" width="100%" />
+                </a>
+			</div>
 		    <h4>Demande immédiate</h4>		    
 		    <form action="#" method="post">
 			    <input type="tel" name="immediate-address-subscription" id="immediate-address-subscription" class="input-clean" data-default="n° d'abonné" value="n° d'abonné" maxlength="20" />
@@ -198,7 +219,11 @@
     <!-- PAGE : DEMANDE IMMEDIATE : Récap -->
     <div class="page" data-role="page" id="immediate-recap" data-title="Demande immédiate" data-theme="c">
 	    <div data-role="content">	    
-	    	<div class="header"><img src="images/logo.png" width="100%" /></div> 
+        	<div class="header">
+            	<a href="#" onClick="stmSite()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+                    <img src="images/logo-grand.png" width="100%" />
+                </a>
+			</div>
 		    <h4>Demande immédiate</h4>
 		    
 		    <b>Merci de vérifier ces informations.<br />
@@ -231,7 +256,11 @@
     <!-- PAGE : RESERVATION : Adresse -->
     <div class="page" data-role="page" id="reservation-address" data-title="Réservation" data-theme="c">
 	    <div data-role="content">	  
-	    	<div class="header"><img src="images/logo.png" width="100%" /></div>   
+        	<div class="header">
+            	<a href="#" onClick="stmSite()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+                    <img src="images/logo-grand.png" width="100%" />
+                </a>
+			</div>
 		    <h4>Réservation différée</h4>
 		    Merci d'indiquer votre adresse de départ
 		    <form action="#" method="post">
@@ -248,7 +277,11 @@
     <!-- PAGE : RESERVATION : Infos -->
     <div class="page" data-role="page" id="reservation-infos" data-title="Réservation" data-theme="c">
 	    <div data-role="content">	  
-	    	<div class="header"><img src="images/logo.png" width="100%" /></div>   
+        	<div class="header">
+            	<a href="#" onClick="stmSite()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+                    <img src="images/logo-grand.png" width="100%" />
+                </a>
+			</div>
 		    <h4>Réservation différée</h4>
 		    
 		    <form action="#" method="post">
@@ -274,7 +307,11 @@
     <!-- PAGE : RESERVATION : Time -->
     <div class="page" data-role="page" id="reservation-time" data-title="Réservation" data-theme="c">
 	    <div data-role="content">	  
-	    	<div class="header"><img src="images/logo.png" width="100%" /></div>   
+        	<div class="header">
+            	<a href="#" onClick="stmSite()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+                    <img src="images/logo-grand.png" width="100%" />
+                </a>
+			</div>
 		    <h4>Réservation différée</h4>
 		    
 		    <form action="#" method="post">	
@@ -302,7 +339,11 @@
     <!-- PAGE : RESERVATION : Récap -->
     <div class="page" data-role="page" id="reservation-recap" data-title="Réservation" data-theme="c">
 	    <div data-role="content">	 
-	    	<div class="header"><img src="images/logo.png" width="100%" /></div>    
+        	<div class="header">
+            	<a href="#" onClick="stmSite()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+                    <img src="images/logo-grand.png" width="100%" />
+                </a>
+			</div>
 		    <h4>Réservation différée</h4>
 		    
 	  		<b>Merci de vérifier ces informations.<br />
@@ -337,7 +378,11 @@
     <!-- PAGE : THANKS -->
     <div class="page" data-role="page" id="thanks" data-title="Demande transférée" data-theme="c">
 	    <div data-role="content">	 
-	    	<div class="header"><img src="images/logo.png" width="100%" /></div>    
+        	<div class="header">
+            	<a href="#" onClick="stmSite()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+                    <img src="images/logo-grand.png" width="100%" />
+                </a>
+			</div>
 		    <div style="text-align:center;">
             	Votre demande a bien été prise en compte par nos services.<br /><br />
                 <div id="results"></div>
@@ -357,7 +402,11 @@
     <!-- -------------------------------------------------------------------------------- -->    
     <div class="page" data-role="page" id="cgv" data-title="Conditions générales" data-theme="c" style="background-color:#3F7786">
 	    <div data-role="content">
-	    	<div class="header"><img src="images/logo.png" width="100%" /></div>    
+        	<div class="header">
+            	<a href="#" onClick="stmSite()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+                    <img src="images/logo-grand.png" width="100%" />
+                </a>
+			</div>
 		    <h4>Conditions générales</h4><br />	
             <div style="width:90%;margin-left:auto;margin-right:auto;">
 
@@ -443,7 +492,11 @@
     <!-- -------------------------------------------------------------------------------- -->    
     <div class="page" data-role="page" id="credits" data-title="Conditions générales" data-theme="c">
 	    <div data-role="content">
-	    	<div class="header"><img src="images/logo.png" width="100%" /></div>    
+        	<div class="header">
+            	<a href="#" onClick="stmSite()" data-ajax="false" data-transition="slide" style="text-decoration:none;">
+                    <img src="images/logo-grand.png" width="100%" />
+                </a>
+			</div>
 		    <h4>Crédits</h4><br />	
             <div style="width:90%;margin-left:auto;margin-right:auto;">
 
