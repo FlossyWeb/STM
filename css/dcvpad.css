@@ -1,0 +1,93 @@
+body {
+	margin: 0px;
+	padding: 0px;
+	background: #00254B url(../visuels/bg.png) top left repeat-x;
+}
+p, h1, h2, h3, h4, h5, h6 {
+	margin: 0px;
+	padding: 0px;
+}
+a {
+	text-decoration: none;
+}
+ul, li {
+	margin: 0px;
+	padding: 0px;
+	list-style-type: none;
+}
+.cleaner {
+	clear: both;
+	height: 1px;
+	overflow: hidden;
+}
+.spacer {
+	clear: both;
+	height: 6px;
+	overflow: hidden;
+}
+#left {
+	color: #FFF;
+}
+#wrap {
+	color: #333;
+	background-color: #EEE;
+	box-shadow: 0 0 2px #333;
+	-moz-box-shadow: 0 0 2px #333; 
+	-webkit-box-shadow: 0 0 2px #333;
+	padding: 6px;
+	margin-top: 36px;
+	width: 60%;
+	font-weight: bolder;
+	font-size: 21px;
+	-moz-border-radius: 6px;
+	border-radius: 6px;
+}
+#map {
+	border: #333;
+	color: #333;
+	box-shadow: 0 0 6px #666;
+	-moz-box-shadow: 0 0 6px #666; 
+	-webkit-box-shadow: 0 0 6px #666;
+	-moz-border-radius: 16px;
+	border-radius: 16px;
+}
+.rounded {
+	-moz-border-radius: 6px;
+	border-radius: 6px;	
+}
+.rounded16 {
+	-moz-border-radius: 16px;
+	border-radius: 16px;
+}
+.shadow {
+	box-shadow: 0 0 6px #000;
+	-moz-box-shadow: 0 0 6px #000; 
+	-webkit-box-shadow: 0 0 6px #000;
+}
+ul.popers a {
+	display: inline;
+}
+.back {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	z-index: 1000;
+}
+em {
+	color: #F00;
+}
+::-webkit-input-placeholder {
+   color: #333;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: #333;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: #333;
+}
+
+:-ms-input-placeholder {  
+   color: #333;
+}
