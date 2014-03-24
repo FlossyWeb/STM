@@ -78,8 +78,15 @@
     var locationSelect;
 	var idcourse;
 	var time;
-	var endcourse; // Clears the current timeout
+	var endcourse; // Clears the timeout
 	var sec;
+	var regName1 = $.localStorage.getItem('regName1');
+	var regCell1 = $.localStorage.getItem('regCell1');
+	var regName2 = $.localStorage.getItem('regName2');
+	var regCell2 = $.localStorage.getItem('regCell2');
+	var regName3 = $.localStorage.getItem('regName3');
+	var regCell3 = $.localStorage.getItem('regCell3');
+	var dontReg = false;
 	var mobileMap = { 'center': '43.298977,5.386320', 'zoom': 12 };
 	
 	////////////////////////////////////////////////////////////
@@ -90,10 +97,26 @@
 		  componentRestrictions: {country: 'fr'}
 		};
 		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		navigator.geolocation.getCurrentPosition(codeLatLng, showError,{enableHighAccuracy:true, maximumAge:0});
+		locateMe();
 		
         $("#search-box").hide("fast");
 		$("#next-box").show("medium");
+        var ok = setInterval( function () {
+            var name_filled = document.getElementById('Accurate').value;
+            var cell_filled = document.getElementById('cellular').value;
+            
+            if ((cell_filled != '') && (name_filled != ''))
+            {
+                $("#next-box").hide("fast");
+                $("#search-box").show("medium");
+            }
+            else
+            {
+                $("#search-box").hide("fast");
+                $("#next-box").show("medium");
+            }
+        }, 1000);
+		/*
         $(".mustHave").change(function () {
             var name_filled = document.getElementById('Accurate').value;
             var cell_filled = document.getElementById('cellular').value;
@@ -109,8 +132,20 @@
                 $("#next-box").show("medium");
             }
         });
+		*/
+		$('#regLinks').append('<fieldset data-role="controlgroup"><legend>Derni&egrave;res informations saisies:</legend>');
+		for(n=1;n<4;n++) {
+			if(($.localStorage.getItem('regName'+n) != null) && ($.localStorage.getItem('regCell'+n) != null)) {
+				rName = $.localStorage.getItem('regName'+n);
+				rCell = $.localStorage.getItem('regCell'+n);
+				$('#regLinks').append('<button id="reg'+n+'" onClick="Fillin(\''+rName+'\',\''+rCell+'\')" class="ui-shadow ui-btn ui-btn-b ui-corner-all ui-icon-star">'+rName+' - '+rCell+'</button>');
+			}
+		}
+		$('#regLinks').append('</fieldset>');
 	});
-	
+	function locateMe() {
+		navigator.geolocation.getCurrentPosition(codeLatLng, showError,{enableHighAccuracy:true, maximumAge:0});
+	}
 	function codeLatLng(position) {
 		var geocoder = new google.maps.Geocoder();
 		var lat = position.coords.latitude;
@@ -137,19 +172,29 @@
 		switch(error.code) 
 		{
 			case error.PERMISSION_DENIED:
-			  x.innerHTML="Vous avez refus&eacute; l&rsquo;acc&egrave;s &agrave; la G&eacute;olocalisation."
+			  x.innerHTML="<strong>Vous avez refus&eacute; l&rsquo;acc&egrave;s &agrave; la G&eacute;olocalisation.</strong>"
 			  break;
 			case error.POSITION_UNAVAILABLE:
-			  x.innerHTML="G&eacute;olocalisation indisponible, veuillez regarder dans l&rsquo;aide ou activer le service dans les reglages de votre appareil."
+			  x.innerHTML="<strong>G&eacute;olocalisation indisponible, veuillez regarder dans l&rsquo;aide ou activer le service dans les reglages de votre appareil.</strong>"
 			  break;
 			case error.TIMEOUT:
-			  x.innerHTML="La demande de G&eacute;olocalisation a expir&eacute;(user location request timed out)."
+			  x.innerHTML="<strong>La demande de G&eacute;olocalisation a expir&eacute;(user location request timed out).</strong>"
 			  break;
 			case error.UNKNOWN_ERROR:
-			  x.innerHTML="Erreur inconnue de G&eacute;olocalisation (unknown error occurred)."
+			  x.innerHTML="<strong>Erreur inconnue de G&eacute;olocalisation (unknown error occurred).</strong>"
 			  break;
 		}
+		$( "#errorPop" ).popup( "open", { positionTo: "window" } );
 	}			  
+	function Fillin(Name, Cell)
+	{
+		$('#Accurate').val(Name);
+		$('#cellular').val(Cell);
+		$("#next-box").hide("fast");
+		$("#rememberMe").popup("close");
+		$("#search-box").show("medium");
+		var dontReg = true;
+	}
 		
 	$( '#map_page' ).live( 'pagebeforeshow',function(event){
 		//$('#map').gmap('clear', 'markers');
@@ -157,6 +202,9 @@
 	});
 	
 	$('#map_page').live('pageinit', function() {
+        var getback = setTimeout( function () {
+            $("#cancel").trigger('click');
+        }, 180000);
 		//demo.add('basic_map', function() {
 		//$('#dblinks').empty();
 		$('#map').gmap({'center': mobileMap.center, 'zoom': mobileMap.zoom, 'disableDefaultUI':false, 'mapTypeId': google.maps.MapTypeId.ROADMAP, 'callback': function() {
@@ -280,6 +328,34 @@
 		var when = document.getElementById("when").value;
 		var date = document.getElementById("date").value;
 		//var medic = document.getElementById("medic").value;
+		if (!dontReg) {
+			for(n=1;n<4;n++) {
+				if(($.localStorage.getItem('regName'+n) == null) && ($.localStorage.getItem('regCell'+n) == null)) {
+					var regName = $.localStorage.setItem('regName'+n, $('#Accurate').val());
+					var regCell = $.localStorage.setItem('regCell'+n, cell);
+					var regLast = $.localStorage.setItem('regLast', n);
+					var writen = true;
+					break;
+				}
+			}
+			if(!writen) {
+				var regLast = $.localStorage.getItem('regLast');
+				switch (regLast) {
+					case '1':
+						var entry = 2;
+					  break;
+					case '2':
+						var entry = 3;
+					  break;
+					case '3':
+						var entry = 1;
+					  break;
+					default:
+				}
+				var regName = $.localStorage.setItem('regName'+entry, $('#Accurate').val());
+				var regCell = $.localStorage.setItem('regCell'+entry, cell);
+			}
+		}
 		var rdvlat = center.lat();
 		var rdvlng = center.lng();
 		url = '';
@@ -377,11 +453,11 @@
 	function stopCall()
 	{
 		cancel(idcourse);
-		$.mobile.changePage( $("#infos"), { transition: "slide", reverse: true} );
+		//$.mobile.changePage( $("#infos"), { transition: "slide", reverse: true} );
 		clearInterval(sec);
 		clearInterval(time);
 		clearTimeout(endcourse);
-		//document.location.href='home.html';
+		document.location.href='index.html';
 	}
     function gobis(flag)
     {
@@ -393,11 +469,7 @@
     }
 	
     $(document).bind( 'pageinit', function() {
-		
-        var getback = setTimeout( function () {
-            $("#cancel").trigger('click');
-        }, 480000);
-       
+		       
     });
     </script>
     </head>
@@ -409,7 +481,7 @@
                 <h1><b>Retour</b></h1>
             </a>
         -->
-            <a href="tel:+33491929292" data-role="button" data-theme="b"><b> Appeler le 04 91 92 92 92 </b></a> 
+            <a href="tel:+33491929292" data-icon="phone" data-role="button" data-theme="b"><b> Appeler le 04 91 92 92 92 </b></a> 
         </div>
         <div data-role="content">
             <center>
@@ -417,28 +489,39 @@
             <a href="taxipad_portal.php" class="back"><img src="picts/Back_blue.png" /></a>
             <a href="taxipad_portal.php" class="back"><img src="picts/back_button.png" /></a>
             -->
-            <div style="display:block; height:30px"></div>
-            <div class="ui-bar-a ui-corner-all ui-shadow" style="padding:1em; margin: 16px; display:block;">
-                <div style="display:block; height:6px"></div>
+            <div class="ui-bar-a ui-corner-all ui-shadow" style="padding:1em; margin: 6px; display:block;">
                 <h1 class="hostname">Commander un taxi</h1>
                 <input type="hidden" id="operator" size="40" value="0"/>
                 <input type="hidden" id="hostname" size="40" value=""/>
                 <input type="hidden" id="group" size="16" value="1"/>
                 <input type="hidden" id="exclu" size="1" value="0"/>
                 <input type="hidden" id="goFavs" size="1" value="0"/>
-                <input type="text" id="addressInput" size="40" placeholder="Adresse RDV"/>
+                <table width="100%" border="0">
+                	<thead><tr><th width="90%"></th><th width="10%"></th></tr></thead>
+                    <tbody>
+                	<tr><td>
+                        <input type="text" id="addressInput" data-clear-btn="true" size="40" placeholder="Adresse RDV" width="90%"/>
+                    </td><td>
+                        <input type="button" data-icon="location" data-iconpos="notext" value="Geoloc" onClick="locateMe()"/>
+                    </td></tr>
                 <input type="hidden" id="DestAddress" size="10" value="DESTINATION"/>
-                <input type="text" id="Accurate" class="mustHave" size="26" placeholder="Nom *"/>
-                <input type="tel" id="cellular" class="mustHave" size="20" placeholder="Tel *"/>
+                	<tr><td>
+                        <input type="text" id="Accurate" data-clear-btn="true" class="mustHave" size="26" placeholder="Nom *"/>
+                    </td><td><a href="#rememberMe" data-rel="popup" data-position-to="window" data-role="button" data-theme="b" data-icon="edit" data-iconpos="notext"></a></td></tr>
+                	<tr><td>
+                        <input type="tel" id="cellular" data-clear-btn="true" class="mustHave" size="20" placeholder="Tel *"/>
+                    </td></tr>
+                    </tbody>
+                </table>
                 <p style="font-size:medium; font-weight:bold;"><em>*</em> Ces informations sont obligatoires</p>
                 <label for="howMany">Nombre de passagers :</label>
                 <input name="howMany" id="howMany" min="1" max="8" value="1" data-show-value="true" data-popup-enabled="true" type="range">
                 <p id="datelabel"><b>Date et heure du RDV si r&eacute;servation :</b></p>
                 <span style="display:inline-block;width: 48%;">
-                    <input type="date" id="date" placeholder="Date" data-inline="true" value=""/>
+                    <input type="date" id="date" placeholder="Date" data-clear-btn="true" data-inline="true" value=""/>
                 </span>
                 <span style="display:inline-block;width: 48%;">
-                    <input type="time" id="when" placeholder="Heure" data-inline="true" value=""/>
+                    <input type="time" id="when" placeholder="Heure" data-clear-btn="true" data-inline="true" value=""/>
                 </span>
                 <select id="CarType"> 
                     <option value="Berline" selected>Vehicule</option>
@@ -475,7 +558,28 @@
                 <hr>
                 <a class="portal" style="width:90%;" href="taxipad_portal.php" target="_top">Retour &agrave; l&rsquo;Accueil</a>
                 -->
-                <div id="results"></div>
+                <div data-role="popup" data-theme="a" id="errorPop" data-dismissible="true" data-overlay-theme="b">
+					<a href="#infos" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Fermer</a>
+                    <div data-theme="a" data-role="header">
+                        <h1>
+                            G&eacute;olocalisation
+                        </h1>
+                    </div>
+                    <div data-role="content">
+                        <div id="results"></div>
+                    </div>
+                </div>
+                <div data-role="popup" data-theme="a" id="rememberMe" data-dismissible="true" data-overlay-theme="b">
+ 					<a href="#infos" data-rel="back" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-icon-delete ui-btn-icon-notext ui-btn-right">Fermer</a>
+                   <div data-theme="a" data-role="header">
+                        <p style="font-size:21px;text-align:center;"><b>
+                            Enregistrements
+                        </b></p>
+                    </div>
+                    <div data-role="content">
+                        <div id="regLinks"></div>
+                    </div>
+                </div>
             </div>
             </center>
         </div>
