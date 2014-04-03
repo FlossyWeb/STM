@@ -101,7 +101,7 @@
 		var autocomplete = new google.maps.places.Autocomplete(input, options);
 		*/
 		$("#addressInput").geocomplete({
-		  map: "#map",
+		  map: "#somediv",
 		  location: "Marseille, France"
 		});
 		locateMe();
@@ -606,6 +606,7 @@
                     <div id="dblinks">
                     </div>
                 </div>
+                <div id="somediv"></div>
                 <input type="button" class="cancel" id="cancel" onClick="stopCall()" value=" Retour / Annulation " />
                 <div id="test"></div>
                 <div data-role="popup" data-theme="a" id="answerBox" data-dismissible="false" data-overlay-theme="a" data-position-to="window">
