@@ -68,8 +68,8 @@
     <script type="text/javascript" src="ui/jquery.ui.map.extensions.js"></script>
     <script type="text/javascript" src="js/jquery.ui.autocomplete.min.js"></script>
     -->
-	<script type="text/javascript" src="ui/min/jquery.ui.map.full.min.js"></script>
 	<script type="text/javascript" src="js/jquery.geocomplete.min.js"></script>
+	<script type="text/javascript" src="ui/min/jquery.ui.map.full.min.js"></script>
     <link type="text/css" rel="stylesheet" href="css/dcvpad.css" />
     <script type="text/javascript">	
     //<![CDATA[
@@ -95,13 +95,23 @@
 	$( '#infos' ).live( 'pagecreate',function(event){
 		var input = document.getElementById('addressInput');
 		/*
+		var latLng = new google.maps.LatLng(43.298977, 5.386320);
+		var radius = 100000;// meters
+		var circle = new google.maps.Circle({center: latLng, radius: radius});
+		var defaultBounds= circle.getBounds(); 
 		var options = {
-		  componentRestrictions: {country: 'fr'}
+			bounds: defaultBounds,
+			componentRestrictions: {country: 'fr'}
 		};
 		var autocomplete = new google.maps.places.Autocomplete(input, options);
-		*/
 		$("#addressInput").geocomplete({
-		  map: "#somediv",
+		  map: "#map",
+		  location: "Marseille, France"
+		});
+		*/
+		
+		$("#addressInput").geocomplete({
+		  map: "#map",
 		  location: "Marseille, France"
 		});
 		locateMe();
@@ -225,6 +235,7 @@
 					//$('#dblinks').append($('<p>' + results[0].geometry.location + '__RDV</p>'));
 					var myPlace = results[0].geometry.location;
 					$.mobile.loading( "show" );
+					//self.refresh();
 					wait4Me = setTimeout( function () {
 						searchLocationsNear(myPlace, self);
 						//$.mobile.loading( "hide" );
@@ -293,7 +304,7 @@
 						$.mobile.pageContainer.pagecontainer("change", "#infos", { transition: "slide", reverse: true} );
                     }
                     else {
-                        document.location.href='home.html';
+                        document.location.href='index.html';
                     }
                 //}
             }, 180000);
@@ -312,6 +323,7 @@
 	function searchLocationsNear(center, mapEvent) {
 		//clearLocations();
 		//alert('In searchLocationsNear');
+		$('#map').gmap('refresh');
 		var myDate = new Date();
 		idcourse = myDate.getTime();
 		//$('#dblinks').append($('<input id="idcourse" type="hidden" value="' + idcourse + '"/>'));
@@ -459,14 +471,17 @@
     }        
 	function stopCall()
 	{
-		cancel(idcourse);
+		$.mobile.loading( "show" );
+		$('#dblinks').empty();	 
 		clearInterval(sec);
 		clearInterval(time);
 		clearTimeout(endcourse);
-		//document.location.href='index.html';
-		//$('#map').gmap('clear', 'markers');
-		//$('#dblinks').empty();	 
-		$.mobile.pageContainer.pagecontainer("change", "#infos", { transition: "slide", reverse: true} );
+		cancel(idcourse);
+		//$('#map').gmap('destroy');
+		//$.mobile.pageContainer.pagecontainer("change", "#infos", { transition: "slide", reverse: true} );
+		var wait2getBack = setTimeout( function () {
+			document.location.href='index.html';
+		}, 2000);
 	}
     function gobis(flag)
     {
@@ -606,7 +621,6 @@
                     <div id="dblinks">
                     </div>
                 </div>
-                <div id="somediv"></div>
                 <input type="button" class="cancel" id="cancel" onClick="stopCall()" value=" Retour / Annulation " />
                 <div id="test"></div>
                 <div data-role="popup" data-theme="a" id="answerBox" data-dismissible="false" data-overlay-theme="a" data-position-to="window">
