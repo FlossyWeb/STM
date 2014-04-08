@@ -35,7 +35,19 @@
 	<feature name="http://api.phonegap.com/1.0/vibration"/>
 	<feature name="http://api.phonegap.com/1.0/notification"/>
 	<feature name="http://api.phonegap.com/1.0/inappbrowser"/>
-	
+	<!-- 
+    <gap:plugin name="org.apache.cordova.device" />
+	<gap:plugin name="org.apache.cordova.battery-status" />
+	<gap:plugin name="org.apache.cordova.camera" />
+	<gap:plugin name="org.apache.cordova.contacts" />
+	<gap:plugin name="org.apache.cordova.file" />
+	<gap:plugin name="org.apache.cordova.geolocation" />
+	<gap:plugin name="org.apache.cordova.media" />
+	<gap:plugin name="org.apache.cordova.network-information" />
+	<gap:plugin name="org.apache.cordova.dialogs" />
+	<gap:plugin name="org.apache.cordova.splashscreen" />
+	<gap:plugin name="org.apache.cordova.vibration" />
+	<gap:plugin name="org.apache.cordova.inappbrowser" />
 	<gap:plugin name="nl.x-services.plugins.calendar" />
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="com.adobe.plugins.gaplugin" />
@@ -44,6 +56,7 @@
 		<param name="APP_ID" value="498866156839917" />
 		<param name="APP_NAME" value="ContosoMobile" />
 	</gap:plugin>
+	-->
 
     <icon src="icon.png" />
 	<icon src="icon24.png" width="24" height="24" />
