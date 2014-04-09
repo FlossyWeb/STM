@@ -14,7 +14,7 @@
 	   Réservez votre taxi simplement via votre mobile avec l'application des Taxis Marseillais.
 	</description>
 
-    <preference name="phonegap-version" value="2.9.0" />
+    <preference name="phonegap-version" value="3.3.0" />
     <preference name="orientation"      value="default" />
     <preference name="target-device"    value="universal" />
     <preference name="fullscreen"       value="true" />
@@ -22,6 +22,19 @@
 	<preference name="show-splash-screen-spinner" value="false" />
 	<preference name="detect-data-types" value="false" />
 
+    <gap:plugin name="org.apache.cordova.device" />
+	<gap:plugin name="org.apache.cordova.battery-status" />
+	<gap:plugin name="org.apache.cordova.camera" />
+	<gap:plugin name="org.apache.cordova.contacts" />
+	<gap:plugin name="org.apache.cordova.file" />
+	<gap:plugin name="org.apache.cordova.geolocation" />
+	<gap:plugin name="org.apache.cordova.media" />
+	<gap:plugin name="org.apache.cordova.network-information" />
+	<gap:plugin name="org.apache.cordova.dialogs" />
+	<gap:plugin name="org.apache.cordova.splashscreen" />
+	<gap:plugin name="org.apache.cordova.vibration" />
+	<gap:plugin name="org.apache.cordova.inappbrowser" />
+	<!-- 
     <feature name="http://api.phonegap.com/1.0/device" />
 	<feature name="http://api.phonegap.com/1.0/battery"/>
 	<feature name="http://api.phonegap.com/1.0/camera"/>
@@ -35,19 +48,7 @@
 	<feature name="http://api.phonegap.com/1.0/vibration"/>
 	<feature name="http://api.phonegap.com/1.0/notification"/>
 	<feature name="http://api.phonegap.com/1.0/inappbrowser"/>
-	<!-- 
-    <gap:plugin name="org.apache.cordova.device" />
-	<gap:plugin name="org.apache.cordova.battery-status" />
-	<gap:plugin name="org.apache.cordova.camera" />
-	<gap:plugin name="org.apache.cordova.contacts" />
-	<gap:plugin name="org.apache.cordova.file" />
-	<gap:plugin name="org.apache.cordova.geolocation" />
-	<gap:plugin name="org.apache.cordova.media" />
-	<gap:plugin name="org.apache.cordova.network-information" />
-	<gap:plugin name="org.apache.cordova.dialogs" />
-	<gap:plugin name="org.apache.cordova.splashscreen" />
-	<gap:plugin name="org.apache.cordova.vibration" />
-	<gap:plugin name="org.apache.cordova.inappbrowser" />
+	
 	<gap:plugin name="nl.x-services.plugins.calendar" />
 	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
 	<gap:plugin name="com.adobe.plugins.gaplugin" />

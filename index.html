@@ -92,6 +92,35 @@
 	
 	////////////////////////////////////////////////////////////
 	
+	// Checks App or Browser
+	app = document.URL.indexOf( 'http://' ) === -1 && document.URL.indexOf( 'https://' ) === -1 && document.URL.indexOf("localhost") != 7;
+	if ( app ) {
+		// PhoneGap application
+		// Attendre que PhoneGap soit prêt	    //
+		document.addEventListener("deviceready", onDeviceReady, false);
+	
+		// PhoneGap est prêt
+		function onDeviceReady() {
+			document.addEventListener("backbutton", onBackKeyDown, false);
+			document.addEventListener("menubutton", onMenuKeyDown, false);
+			locateMe();
+		}
+		// GESTION DES BOUTONS MATERIEL
+		// Bouton retour
+		function onBackKeyDown() {
+			//history.back();
+			//changePage('#infos');
+			alert('Veuillez ne pas quitter myTaxi pendant la recheche de taxi disponibles');
+		}
+		// Bouton menu
+		function onMenuKeyDown() {
+			//changePage('#infos');
+		}
+	}
+	else {
+		app = false;
+	}
+	
 	$( '#infos' ).live( 'pagecreate',function(event){
 		var input = document.getElementById('addressInput');
 		/*
@@ -114,7 +143,7 @@
 		  map: "#map",
 		  location: "Marseille, France"
 		});
-		locateMe();
+		if(!app) locateMe();
 		
         $("#search-box").hide("fast");
 		$("#next-box").show("medium");
@@ -200,8 +229,13 @@
 			case error.UNKNOWN_ERROR:
 			  x.innerHTML="<strong>Erreur inconnue de G&eacute;olocalisation (unknown error occurred).</strong>"
 			  break;
+			default:
+			  x.innerHTML="<strong>Erreur de G&eacute;olocalisation, red&eacute;marrage du smartphone n&eacute;c&eacute;ssaire.</strong>"
 		}
-		$( "#errorPop" ).popup( "open", { positionTo: "window" } );
+		// Fall back to no options and try again for Android to work.
+		navigator.geolocation.getCurrentPosition(codeLatLng, function(){
+			$( "#errorPop" ).popup( "open", { positionTo: "window" } );
+		});
 	}			  
 	function Fillin(Name, Cell)
 	{
