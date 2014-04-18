@@ -2,7 +2,7 @@
 <widget xmlns = "http://www.w3.org/ns/widgets"
 		xmlns:gap = "http://phonegap.com/ns/1.0"
 		id = "com.taxibleuservices.stm"
-		version = "1.0.1">
+		version = "1.0.3">
     
     <author href="http://flossyweb.com" email="contact@flossyweb.com">
         FRANCOIS-REGIS SIMON
@@ -27,13 +27,15 @@
 	<gap:plugin name="org.apache.cordova.camera" />
 	<gap:plugin name="org.apache.cordova.contacts" />
 	<gap:plugin name="org.apache.cordova.file" />
-	<gap:plugin name="org.apache.cordova.geolocation" />
 	<gap:plugin name="org.apache.cordova.media" />
 	<gap:plugin name="org.apache.cordova.network-information" />
 	<gap:plugin name="org.apache.cordova.dialogs" />
 	<gap:plugin name="org.apache.cordova.splashscreen" />
 	<gap:plugin name="org.apache.cordova.vibration" />
 	<gap:plugin name="org.apache.cordova.inappbrowser" />
+	<gap:plugin name="org.apache.cordova.device-orientation" />
+	<gap:plugin name="org.apache.cordova.geolocation" />
+	<gap:plugin name="org.apache.cordova.statusbar" />
 	<!-- 
     <feature name="http://api.phonegap.com/1.0/device" />
 	<feature name="http://api.phonegap.com/1.0/battery"/>
@@ -58,6 +60,9 @@
 		<param name="APP_NAME" value="ContosoMobile" />
 	</gap:plugin>
 	-->
+	<gap:plugin name="com.phonegap.plugins.barcodescanner" />
+	<gap:plugin name="hu.dpal.phonegap.plugins.contactnumberpicker" version="0.1.1" />
+	<gap:plugin name="tr.bel.mamak.sms_plagin" version="0.1.0" />
 
     <icon src="icon.png" />
 	<icon src="icon24.png" width="24" height="24" />
