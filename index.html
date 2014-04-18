@@ -111,6 +111,7 @@
 		function onDeviceReady() {
 			document.addEventListener("backbutton", onBackKeyDown, false);
 			document.addEventListener("menubutton", onMenuKeyDown, false);
+			StatusBar.overlaysWebView(false);
 			setTimeout(function() { 
 				locateMe();
 			}, 1000);
